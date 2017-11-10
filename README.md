@@ -14,7 +14,7 @@ Easylog 是Android平台的一款开源的，简单易用的日志输出工具�
 
 	dependencies {
 		......
-    	compile 'com.goorwl:easylog:0.4.0'
+    	compile 'com.goorwl:easylog:0.5.0'
 	}
 
 同步一下即可。
@@ -86,7 +86,7 @@ Easylog 是Android平台的一款开源的，简单易用的日志输出工具�
 
 代码：
 
-    EasyLog.setClazz(this);		// 参数：Activity
+    EasyLog.setClazz(this);		// 参数：Object
     EasyLog.setIsLine(true);
 
 输出：

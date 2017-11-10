@@ -1,10 +1,10 @@
 package com.example.wule.easylog;
 
-import android.app.Activity;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Created by wule_ on 2017/11/10.
@@ -12,18 +12,20 @@ import java.util.Date;
 
 public class EasyLog {
     private static String TAG = "= EasyLog =";
+    private static HashSet<Object> used = new HashSet<>();
     private static boolean showIs = true;
     private static boolean timeIs = false;
     private static boolean lineIs = false;
-    private static Activity sClazz = null;
+    private static Object sClazz = null;
 
     public static void setAll(boolean b) {
         timeIs = b;
         lineIs = b;
     }
 
-    public static void setClazz(Activity clazz) {
+    public static void setClazz(Object clazz) {
         sClazz = clazz;
+        used.add(clazz);
     }
 
     public static void setIsShow(boolean isShow) {
@@ -66,10 +68,11 @@ public class EasyLog {
         show(Log.ERROR, msg);
     }
 
-    public static void auto(Activity a) {
+    public static void auto(Object a) {
         timeIs = true;
         lineIs = true;
         sClazz = a;
+        used.add(a);
     }
 
     public static void show(int type, String msg) {
@@ -84,12 +87,19 @@ public class EasyLog {
             temp.append(" == ");
         }
         if (lineIs) {
-            if (sClazz instanceof Activity) {
-                StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
+            StackTraceElement targetStackTraceElement = getTargetStackTraceElement(sClazz);
+            if (targetStackTraceElement != null) {
                 temp.append("(" + targetStackTraceElement.getFileName() + ":"
                         + targetStackTraceElement.getLineNumber() + ")" + " == ");
-            } else
-                temp.append("(the activity is null)" + " == ");
+            } else {
+                for (Object a : used) {
+                    StackTraceElement targetStackTraceElement1 = getTargetStackTraceElement(a);
+                    if (targetStackTraceElement1 != null) {
+                        temp.append("(" + targetStackTraceElement1.getFileName() + ":"
+                                + targetStackTraceElement1.getLineNumber() + ")" + " == ");
+                    }
+                }
+            }
         }
         temp.append(msg);
         StringBuffer sb = new StringBuffer();
@@ -128,10 +138,10 @@ public class EasyLog {
         }
     }
 
-    public static StackTraceElement getTargetStackTraceElement() {
+    public static StackTraceElement getTargetStackTraceElement(Object clazz) {
         StackTraceElement targetStackTrace = null;
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String[] split = sClazz.getClass().getName().split("\\.");
+        String[] split = clazz.getClass().getName().split("\\.");
         for (StackTraceElement stackTraceElement : stackTrace) {
             if (stackTraceElement.toString().contains(split[split.length - 1])) {
                 targetStackTrace = stackTraceElement;
