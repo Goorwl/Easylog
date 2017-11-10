@@ -66,6 +66,12 @@ public class EasyLog {
         show(Log.ERROR, msg);
     }
 
+    public static void auto(Activity a) {
+        timeIs = true;
+        lineIs = true;
+        sClazz = a;
+    }
+
     public static void show(int type, String msg) {
         StringBuffer temp = new StringBuffer();
         if (!showIs) {
