@@ -34,6 +34,10 @@ public class EasyLog {
         lineIs = isLine;
     }
 
+    public static void initTag() {
+        TAG = "= EasyLog =";
+    }
+
     public static void setTag(String tag) {
         TAG = tag;
     }

@@ -7,3 +7,4 @@
 /build
 /captures
 .externalNativeBuild
+/easylog2/build.gradle
