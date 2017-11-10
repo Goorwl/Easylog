@@ -86,7 +86,7 @@ Easylog 是Android平台的一款开源的，简单易用的日志输出工具�
 
 代码：
 
-    EasyLog.setClazz(this);		// 参数：Object
+    EasyLog.setClazz(this);		// 参数：当前类的对象，如果当前调用在静态方法，传入 new Xxx();
     EasyLog.setIsLine(true);
 
 输出：
@@ -162,9 +162,9 @@ Easylog 是Android平台的一款开源的，简单易用的日志输出工具�
 
 代码：
 
-	// 放置在每个类的最前面配置
-	// setContentView(R.layout.activity_main);
-    EasyLog.auto(this);
+	// 放置在 =每个类= 的最前面配置
+	// setContentView(R.layout.activity_main); //设置布局下面
+    EasyLog.auto(this);		// 参数：当前类的对象，如果当前调用在静态方法，传入 new Xxx();
     EasyLog.v("test verbose info...");
     EasyLog.i("test info info...");
 

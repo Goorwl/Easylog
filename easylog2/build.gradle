@@ -33,4 +33,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
+publish {
+    repoName = 'easylog'
+    artifactId = 'easylog'
+    userOrg = 'wulele'
+    groupId =  'com.goorwl'
+    publishVersion = '0.5.0'
+    description =  'thi is utils tool for android with log'
+    website = 'https://github.com/Goorwl/Easylog'
+    bintrayUser = 'wulele'
+    bintrayKey =  '8ab87f166cfd106d271b89a94bf11c7903a39560'
+    dryRun =  'false'
+}
